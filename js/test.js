@@ -1,8 +1,20 @@
-function generateChart() {
+const MAX_COL = 3;
+
+const generateChart = () => {
   const people = parseInt(document.getElementById('people').value);
-  const rows = parseInt(document.getElementById('rows').value);
-  const cols = parseInt(document.getElementById('cols').value);
+  let rows = 0;
+  let cols = MAX_COL;
   
+  const seatCnt = Math.ceil(people / 2);
+  if (seatCnt >= MAX_COL) {
+    rows = seatCnt / cols;
+    if (rows % cols > 0) ++rows;
+  }
+  else {
+    rows = 1;
+    cols = seatCnt;
+  }
+
   const chart = document.getElementById('chart');
   chart.innerHTML = '';
   chart.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
@@ -26,15 +38,18 @@ function generateChart() {
   // combination(arr, ) 
 }
 
-const combination = (arr, cnt, selected, startIdx) => {
+const permutation = (cnt, selected, visited) => {
   if (cnt === 0) {
-    arr.push(selected.join(' '));
-    console.log(arr);
+    result.push(selected.join(' '));
     return;
   }
 
-  for (let i = startIdx; i < src.length; i++) {
+  for (let i = 0; i < src.length; i++) {
+    if (!visited[i]) {
+      visited[i] = true;
       selected[selected.length - cnt] = src[i];
-      combination(arr, cnt - 1, selected, i + 1);
+      permutation(cnt - 1, selected, visited);
+      visited[i] = false;
+    }
   }
 };
