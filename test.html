@@ -9,17 +9,11 @@
   <body>
     <h1>자리 배치도 생성기</h1>
     <div class="form">
-      <!-- <label>행: <input type="number" id="rows" min="1" /></label>
-      <label>열: <input type="number" id="cols" min="1" /></label> -->
       <label>인원수: <input type="number" id="people" min="0" /></label>
       <button onclick="generateChart()">생성</button>
     </div>
 
-    <div id="alert" class="alert">
-      <!-- <span class="alert-icon">⚠️</span>
-      <div class="message">This is an alert message!</div>
-      <button onclick="this.parentElement.style.display='none'">Close</button> -->
-    </div>
+    <div id="alert" class="alert"></div>
 
     <div id="chart" class="seating-chart"></div>
     <div id="seatList" class="array-output"></div>

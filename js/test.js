@@ -1,3 +1,6 @@
+const alertContainer = document.getElementById("alert");
+const peopleContainer = document.getElementById("people");
+
 const MAX_SEAT_LOC = 2;
 const MAX_COL = 3;
 const LIMIT_PEOPLE = 11;
@@ -13,16 +16,16 @@ let seatCnt = 0;
 let pairSet = null;
 let isValidSeat = null;
 
-document.getElementById("people").addEventListener('keydown', function(event) {
+peopleContainer.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     generateChart();
   }
 });
 
-const alertContainer = document.getElementById("alert");
+
 
 const generateChart = () => {
-  orgPeople = parseInt(document.getElementById('people').value);
+  orgPeople = parseInt(peopleContainer.value);
   people = orgPeople % 2 == 0 ? orgPeople : orgPeople + 1;
 
   if (people >= LIMIT_PEOPLE) {
@@ -67,11 +70,13 @@ const generateChart = () => {
   permutation(src, people, selected, visited);
 }
 
-const makeChart = () => {
+const makeChart = (selected) => {
   const chart = document.getElementById('chart');
   chart.innerHTML = '';
   chart.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   
+  console.log(selected);
+
   let count = 0;
   for (let i = 0; i < rows * cols; i++) {
       const seat = document.createElement('div');
@@ -124,13 +129,11 @@ const setPairHistory = (selected) => {
 
 const permutation = (src, cnt, selected, visited) => {
   if (cnt === 0) {
-    // console.log(++idx + ")org: " + selected);
-    
     if (!checkPairHistory(selected)) return;
     setPairHistory(selected);
     
     if (idx == 0) {
-      makeChart();
+      makeChart(selected);
     }
 
     generateList(++idx, selected);
@@ -153,17 +156,24 @@ const generateList = (index, selected) => {
   const card = document.createElement('div');
 
   container.className = 'array-output';
+  
   card.className = 'array-card';
   card.innerHTML = `
     <h3>#${index}</h3>
       <p>${selected}</p>
   `;
+  card.addEventListener("click", (e) => {
+    const pElement = e.currentTarget.querySelector('p');
+    const arrayString = pElement.textContent;
+    const tmpArr = arrayString.split(',').map(Number);
+    makeChart(tmpArr);
+  })
+
   container.appendChild(card);
   seatList.appendChild(container);
 };
 
 const makeWarnAlert = (message) => {
-  const alertContainer = document.getElementById("alert");
   alertContainer.innerHTML = "";
 
   // Create the icon element
