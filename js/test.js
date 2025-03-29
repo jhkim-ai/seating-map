@@ -22,8 +22,6 @@ peopleContainer.addEventListener('keydown', function(event) {
   }
 });
 
-
-
 const generateChart = () => {
   orgPeople = parseInt(peopleContainer.value);
   people = orgPeople % 2 == 0 ? orgPeople : orgPeople + 1;
@@ -78,7 +76,6 @@ const makeChart = (selected) => {
   console.log(selected);
 
   let j = 0;
-  let count = 0;
   for (let i = 0; i < rows * cols; i++) {
     const seat = document.createElement('div');
     let partner = "";
