@@ -77,20 +77,38 @@ const makeChart = (selected) => {
   
   console.log(selected);
 
+  let j = 0;
   let count = 0;
   for (let i = 0; i < rows * cols; i++) {
-      const seat = document.createElement('div');
-      seat.className = 'seat';
+    const seat = document.createElement('div');
+    let partner = "";
+    let is1stSet = false;
+    
+    seat.className = 'seat';
 
-      if (count < people) {
-          const partner = (count + 1 < people) ? `${count + 1}, ${count + 2}` : `${count + 1}`;
-          seat.textContent = partner;
-          count += 2;
+    if (j < people) {
+      if (orgPeople % 2 == 1) {
+        if (selected[j] != people) {
+          partner = `${selected[j]}`;
+          is1stSet = true;
+        }
+
+        if (selected[j + 1] != people) {
+          if (is1stSet) partner += `, ${selected[j + 1]}`;
+          else partner = `${selected[j+1]}`;
+        }
+
       } else {
-          seat.classList.add('empty');
+        partner = `${selected[j]}, ${selected[j+1]}`;
       }
+      
+      seat.textContent = partner;
+      j += 2;
+    } else {
+        seat.classList.add('empty');
+    }
 
-      chart.appendChild(seat);
+    chart.appendChild(seat);
   }
 }
 

@@ -126,6 +126,12 @@ button:hover {
   padding: 10px;
   z-index: 1000;
   border-bottom: 1px solid #e2e8f0;
+
+  /* 추가된 스타일 */
+  /* display: flex; */
+  /* justify-content: center;
+  max-width: 600px;
+  margin: 0 auto; */
 }
 
 /* 아래 배열 카드랑 충돌 안 나게 여유 공간 확보 */
